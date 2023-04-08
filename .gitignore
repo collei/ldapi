@@ -1,0 +1,7 @@
+/vendor/
+/storage/framework/*.*
+/storage/logs/*.*
+
+#Developement
+*.sublime-project
+*.sublime-workspace

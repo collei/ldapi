@@ -1,0 +1,19 @@
+{
+	"name": "collei/ldapi",
+	"description": "Simple class for reading information from LDAP.",
+	"keywords": [
+		"ldap",
+		"php",
+		"collei"
+	],
+	"type": "library",
+	"license": "MIT",
+	"require": {
+		"php": "^7.0+"
+	},
+	"autoload": {
+		"psr-4": {
+			"Collei\\": "src/Collei",
+		}
+	}
+}
