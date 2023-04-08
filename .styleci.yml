@@ -1,6 +1,6 @@
 php:
   risky: false
-  version: 8.1
+  version: 7.0
   preset: recommended
   tab-width: 4
   use-tabs: true
@@ -14,7 +14,3 @@ php:
       - "spark"
       - "vendor"
     name: "*.php"
-    not-name:
-      - "*.blade.php"
-      - "*.vis.php"
-      - "_ide_helper.php"
