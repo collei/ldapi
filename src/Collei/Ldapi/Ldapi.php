@@ -40,12 +40,66 @@ class Ldapi
 	protected $trees = [];
 
 	/**
+	 *	Initializer
+	 *
+	 *	@param	string	$server
+	 *	@return	self
+	 */
+	public function __construct(string $server)
+	{
+		$this->server = $server;
+	}
+
+	/**
+	 *	Retrieves the LDAP server.
+	 *
+	 *	@return	string
+	 */
+	public function getServer()
+	{
+		return $this->server;
+	}
+
+	/**
+	 *	Retrieves the underlying LDAP connection.
+	 *
+	 *	@return	resource
+	 */
+	public function getConnection()
+	{
+		return $this->connection;
+	}
+
+	/**
+	 *	Retrieves the current orgenization.
+	 *
+	 *	@return	string
+	 */
+	public function getOrganization()
+	{
+		return $this->organization;
+	}
+
+	/**
+	 *	Defines the current orgenization to query against.
+	 *
+	 *	@return	$this
+	 */
+	public function setOrganization($organization)
+	{
+		$this->organization = $organization;
+		//
+		return $this;
+	}
+
+	/**
 	 *	Converts binary data to MSSQL Guid format
+	 *
 	 *	@static
 	 *	@param	mixed	$binaryGUID
 	 *	@return	string
 	 */
-	private static function binToGUID($binaryGUID)
+	protected static function binToGUID($binaryGUID)
 	{
 		$unpacked = unpack('Va/v2b/n2c/Nd', $binaryGUID);
 		//
@@ -62,11 +116,12 @@ class Ldapi
 
 	/**
 	 *	Organizes the info array returned by ldap_get_entries()
+	 *
 	 *	@static
 	 *	@param	array	$info
 	 *	@return	array
 	 */
-	private static function planify(array $info)
+	protected static function planify(array $info)
 	{
 		$items = [];
 		//
@@ -112,17 +167,6 @@ class Ldapi
 	}
 
 	/**
-	 *	Initializer
-	 *
-	 *	@param	string	$server
-	 *	@return	self
-	 */
-	public function __construct(string $server)
-	{
-		$this->server = $server;
-	}
-
-	/**
 	 *	Initialize the communication to LDAP server (not real connection)
 	 *
 	 *	@return	bool
@@ -157,6 +201,7 @@ class Ldapi
 			$this->bind['user'] = $userOrDN;
 			$this->bind['password'] = $password;
 			$this->bind['secure'] = \ldap_start_tls($this->connection);
+			//
 			$this->bind['state'] = @\ldap_bind(
 				$this->connection, $userOrDN, $password
 			);
@@ -211,7 +256,5 @@ class Ldapi
 		//
 		return false;
 	}
-
 }
-
 
